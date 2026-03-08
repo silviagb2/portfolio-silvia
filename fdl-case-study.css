@@ -1102,7 +1102,8 @@ img { display: block; }
 @media (max-width: 768px) {
 
   /* NAV */
-  .nav { padding: 0 24px; }
+  .nav { padding: 0 20px; }
+  .nav-name { display: none; }
 
   /* HEADER */
   .cs-header { height: 500px; }

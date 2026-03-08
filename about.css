@@ -34,7 +34,9 @@ img { display: block; }
   background: var(--white);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 72px;
+  transition: transform 0.3s ease;
 }
+.nav--hidden { transform: translateY(-100%); }
 
 .nav-logo       { display: flex; align-items: center; gap: 12px; }
 .nav-avatar     { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: var(--border); flex-shrink: 0; }
@@ -337,10 +339,9 @@ img { display: block; }
 }
 
 @media (max-width: 768px) {
-  .nav          { flex-wrap: wrap; height: auto; padding: 16px; gap: 16px; position: static; }
-  .nav-pill     { position: static; transform: none; order: 3; width: 100%; justify-content: center; }
-  .nav-logo     { order: 1; }
-  .nav-contact-btn { order: 2; margin-left: auto; }
+  .nav          { padding: 0 20px; }
+  .nav-name     { display: none; }
+  .nav-pill     { position: static; transform: none; }
   .about-main   { top: 0; padding: 16px; }
   .about-left   { height: 380px; }
   .cards-row    { flex-wrap: wrap; }
