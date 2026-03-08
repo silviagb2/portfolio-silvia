@@ -228,3 +228,9 @@
   object-position: center bottom;
   display: block;
 }
+
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-pill-link { padding: 9px 16px; font-size: 14px; }
+  .nav-contact-btn { padding: 7px 14px; font-size: 14px; }
+}

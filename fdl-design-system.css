@@ -394,3 +394,52 @@ img { display: block; }
   font-size: 15px; line-height: 1.5;
   color: rgba(255,255,255,0.65);
 }
+
+/* =============================================
+   RESPONSIVE — MOBILE
+   ============================================= */
+@media (max-width: 768px) {
+
+  /* NAV */
+  .nav { padding: 0 24px; }
+
+  /* HEADER */
+  .cs-header { height: 500px; }
+  .cs-header-title {
+    font-size: 42px;
+    top: 96px;
+    width: 90%;
+    white-space: normal;
+  }
+  .cs-header-img {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  /* INTRO INFO */
+  .intro-info {
+    width: calc(100% - 32px);
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .intro-info-item { padding: 16px 16px 16px; }
+
+  /* CONTENT */
+  .ds-content { padding: 0 20px; }
+  .ds-section-gap { margin-top: 64px; }
+  .ds-step-gap { margin-top: 48px; }
+  .ds-heading, .ds-intro-title { font-size: 36px; }
+  .ds-step-title { font-size: 28px; }
+  .ds-intro { padding-top: 48px; }
+
+  /* GOAL CARDS */
+  .ds-goal-card { padding: 20px 16px 20px 0; gap: 12px; flex-wrap: wrap; }
+  .ds-goal-title { width: auto; }
+
+  /* IMPACT */
+  .ds-impact-section { padding: 0 16px; margin: 64px 0 80px; }
+  .ds-impact-inner { padding: 48px 28px 56px; border-radius: 28px; gap: 40px; }
+  .ds-impact-title { font-size: 36px; }
+  .ds-impact-cols { flex-direction: column; gap: 40px; }
+}
