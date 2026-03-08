@@ -402,7 +402,9 @@ img { display: block; }
 
   /* NAV */
   .nav { padding: 0 20px; }
-  .nav-name { display: none; }
+  .nav-name-last { display: none; }
+  .nav-pill-link { padding: 9px 16px; font-size: 14px; }
+  .nav-contact-btn { padding: 7px 14px; font-size: 14px; }
 
   /* HEADER */
   .cs-header { height: 500px; }
@@ -416,6 +418,7 @@ img { display: block; }
     bottom: 0;
     left: 0;
     width: 100%;
+    transform: none;
   }
 
   /* INTRO INFO */
@@ -427,7 +430,7 @@ img { display: block; }
   .intro-info-item { padding: 16px 16px 16px; }
 
   /* CONTENT */
-  .ds-content { padding: 0 20px; }
+  .ds-content { padding: 0 16px; }
   .ds-section-gap { margin-top: 64px; }
   .ds-step-gap { margin-top: 48px; }
   .ds-heading, .ds-intro-title { font-size: 36px; }

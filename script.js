@@ -22,15 +22,18 @@ if (isMobile) {
   const SW = window.innerWidth;
   const stage = document.getElementById('stage');
   stage.classList.add('stage--mobile');
-  document.body.style.overflowY = 'auto';
+  document.documentElement.style.overflow = 'auto';
+  document.documentElement.style.height = 'auto';
+  document.body.style.overflow = 'auto';
   document.body.style.height = 'auto';
 
   const mobileW = Math.min(SW * 0.88, 380);
 
   CARD_DEFS.forEach((def, i) => {
     const el = document.getElementById(def.id);
-    const mobileH = Math.round(mobileW * def.fh / def.fw);
-    el.style.width  = mobileW + 'px';
+    const cardW = def.id === 'card-3' ? Math.round(mobileW * 0.65) : mobileW;
+    const mobileH = Math.round(cardW * def.fh / def.fw);
+    el.style.width  = cardW + 'px';
     el.style.height = mobileH + 'px';
     el.style.opacity = '0';
     setTimeout(() => {
@@ -41,6 +44,21 @@ if (isMobile) {
     if (CARD_LINKS[def.id]) {
       el.addEventListener('click', () => {
         window.location.href = CARD_LINKS[def.id];
+      });
+    } else {
+      const notif      = document.getElementById('notif');
+      const notifIcon  = document.getElementById('notif-icon');
+      const notifTitle = document.getElementById('notif-title');
+      const notifSub   = document.getElementById('notif-sub');
+      let notifTimeout = null;
+
+      el.addEventListener('click', () => {
+        notifIcon.textContent  = el.dataset.icon  || '✦';
+        notifTitle.textContent = el.dataset.title || '';
+        notifSub.textContent   = el.dataset.sub   || '';
+        notif.classList.add('visible');
+        clearTimeout(notifTimeout);
+        notifTimeout = setTimeout(() => notif.classList.remove('visible'), 2500);
       });
     }
   });

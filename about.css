@@ -332,7 +332,7 @@ img { display: block; }
    RESPONSIVE
    ============================================= */
 @media (max-width: 1100px) {
-  .about-main   { position: static; overflow: visible; flex-direction: column; padding: 24px; }
+  .about-main   { position: static; overflow: visible; flex-direction: column; padding: calc(var(--nav-h) + 24px) 24px 24px; }
   .about-left   { width: 100%; height: 440px; }
   .chat-scroll  { justify-content: flex-end; }
   .card-info    { padding: 24px 32px 40px; }
@@ -340,11 +340,20 @@ img { display: block; }
 
 @media (max-width: 768px) {
   .nav          { padding: 0 20px; }
-  .nav-name     { display: none; }
-  .nav-pill     { position: static; transform: none; }
-  .about-main   { top: 0; padding: 16px; }
-  .about-left   { height: 380px; }
-  .cards-row    { flex-wrap: wrap; }
-  .card-info    { flex: 1 1 260px; height: auto; min-height: 280px; }
-  .card-sm      { flex: 1 1 240px; width: auto; height: 260px; }
+  .nav-name-last { display: none; }
+  .nav-pill-link { padding: 9px 16px; font-size: 14px; }
+  .nav-contact-btn { padding: 7px 14px; font-size: 14px; }
+  .about-main   { padding: calc(var(--nav-h) + 16px) 16px 16px; flex-direction: column; }
+  .about-right  { order: 1; }
+  .about-left   { order: 2; width: 100%; height: 420px; }
+  .cards-row    { flex-direction: column; gap: 12px; }
+  .cards-row:last-child { display: flex; flex-direction: column; height: auto; }
+  .card-info    { flex: none; height: auto; min-height: 0; padding: 20px 24px 24px; }
+  .card-sm      { flex: none; width: 100%; height: 220px; }
+  .card-contact { height: auto; padding: 24px 24px 28px; }
+  .contact-icon { font-size: 64px; transform: rotate(-13deg) translateX(-28px); }
+  .contact-icon:hover { transform: rotate(-13deg) scale(1.1); }
+  .contact-icon-linkedin { transform: rotate(26deg) translateX(28px); }
+  .contact-icon-linkedin:hover { transform: rotate(26deg) scale(1.1); }
+  .contact-icon-linkedin img { width: 64px; height: 64px; }
 }
