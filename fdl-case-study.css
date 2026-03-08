@@ -797,6 +797,8 @@ img { display: block; }
 /* --- Moodboard --- */
 .ui-moodboard {
   padding: 0 24px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .ui-moodboard-img {
