@@ -1,0 +1,342 @@
+/* =============================================
+   VARIABLES
+   ============================================= */
+:root {
+  --font:        'Inter', sans-serif;
+  --dark:        #2d2d2d;
+  --black:       #131e2e;
+  --grey:        #8e8e93;
+  --border:      #ececec;
+  --pill-bg:     #f7f7f9;
+  --bubble-bg:   #f7f7f9;
+  --card-bg:     #f7f7f9;
+  --card-gray:   #e0e3e4;
+  --dark-blue:   #0f141d;
+  --white:       #ffffff;
+  --nav-h:       96px;
+  --shadow-card: 0 2px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+/* =============================================
+   RESET
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; font-family: var(--font); background: var(--white); color: var(--dark); -webkit-font-smoothing: antialiased; }
+a   { text-decoration: none; color: inherit; }
+img { display: block; }
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 72px;
+}
+
+.nav-logo       { display: flex; align-items: center; gap: 12px; }
+.nav-avatar     { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: var(--border); flex-shrink: 0; }
+.nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.nav-name       { font-size: 15px; font-weight: 500; color: var(--dark); letter-spacing: -0.01em; white-space: nowrap; }
+
+.nav-pill { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: var(--pill-bg); border-radius: 100px; padding: 6px; }
+.nav-pill-link { font-size: 15px; font-weight: 500; color: var(--grey); padding: 9px 28px; border-radius: 100px; letter-spacing: -0.01em; transition: all 0.2s; white-space: nowrap; }
+.nav-pill-link.active { background: var(--white); color: var(--dark); font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.nav-pill-link:not(.active):hover { color: var(--dark); }
+
+.nav-contact-btn { font-size: 15px; font-weight: 400; color: var(--black); border: 1px solid var(--border); border-radius: 100px; padding: 7px 20px; letter-spacing: -0.01em; transition: border-color 0.2s; }
+.nav-contact-btn:hover { border-color: var(--dark); }
+
+/* =============================================
+   MAIN LAYOUT — fixed height, no scroll on main
+   ============================================= */
+.about-main {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  padding: 20px 32px 24px 32px;
+  overflow: hidden;
+}
+
+/* =============================================
+   LEFT PANEL — scrollable chat
+   ============================================= */
+.about-left {
+  width: 500px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-scroll {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+}
+.chat-scroll::-webkit-scrollbar { display: none; }
+
+.chat-container {
+  margin-top: auto; /* pushes messages to the bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+}
+
+/* =============================================
+   CHAT MESSAGE
+   ============================================= */
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* bubble row: tail + bubble side by side */
+.chat-bubble-row {
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  position: relative; /* anchor for absolute reactions */
+  /* drop-shadow covers both the SVG tail and the bubble in one pass */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.10)) drop-shadow(0 0 1px rgba(0,0,0,0.06));
+  transition: filter 0.15s ease;
+}
+
+.chat-bubble-row:hover {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.13)) drop-shadow(0 0 1px rgba(0,0,0,0.07));
+}
+
+/* ── TAIL ── */
+.chat-tail {
+  flex-shrink: 0;
+  width: 14px;
+  height: 20px;
+  margin-right: -1px;   /* overlap slightly with bubble */
+  align-self: flex-end;
+  margin-bottom: 12px;  /* align with bottom of bubble */
+  transform: rotate(8deg);
+  transform-origin: bottom right;
+}
+
+/* ── BUBBLE ── */
+.chat-bubble {
+  background: var(--bubble-bg);
+  border-radius: 20px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--dark-blue);
+  /* no box-shadow here — handled by drop-shadow on the row */
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  max-width: 440px;
+}
+
+/* typing bubble */
+.chat-bubble--typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+  border-radius: 100px;
+}
+
+/* image bubble */
+.chat-bubble--image {
+  background: var(--white);
+  padding: 10px;
+  border-radius: 26px;
+  cursor: pointer;
+}
+
+.chat-img {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+}
+
+/* =============================================
+   TYPING DOTS
+   ============================================= */
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(15,20,29,0.3);
+  animation: typing-bounce 1.2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.18s; }
+.dot:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0);    opacity: 0.35; }
+  30%            { transform: translateY(-5px); opacity: 1;    }
+}
+
+/* =============================================
+   REACTIONS
+   ============================================= */
+.chat-reactions {
+  position: absolute;
+  bottom: -14px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  z-index: 1;
+}
+
+.reaction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--card-gray);
+  border: none;
+  border-radius: 100px;
+  padding: 3px 9px 3px 7px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 1;
+}
+.reaction-badge:hover  { background: #d0d4d6; }
+
+.reaction-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5a5a5a;
+  font-family: var(--font);
+}
+
+/* bump pop when reacting */
+.reaction-badge--bump { animation: badge-bump 0.28s ease; }
+
+@keyframes badge-bump {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* =============================================
+   RIGHT PANEL — static, no scroll
+   ============================================= */
+.about-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cards-row { display: flex; gap: 12px; flex: 1; min-height: 0; }
+.cards-row:first-child { flex: 1.3; }
+.cards-row:last-child  { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr; }
+
+/* =============================================
+   CARD BASE
+   ============================================= */
+.card { background: var(--card-bg); border-radius: 40px; box-shadow: var(--shadow-card); }
+
+/* Info cards */
+.card-info {
+  flex: 1;
+  min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  gap: 20px;
+  padding: 20px 40px 24px;
+  overflow: hidden;
+}
+
+.card-tag {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--card-gray); border-radius: 100px;
+  padding: 11px 18px; font-size: 15px; font-weight: 500;
+  color: var(--dark-blue); white-space: nowrap; letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.card-list { list-style: none; width: 100%; display: flex; flex-direction: column; }
+
+.card-list-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 15px; gap: 16px; }
+.card-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+/* expanded item (with clients row) */
+.card-list-item--expanded { flex-direction: column; gap: 5px; }
+.item-header { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; gap: 16px; }
+
+.item-role    { display: flex; flex-direction: column; gap: 1px; }
+.item-company { font-weight: 600; color: var(--dark); line-height: 1.2; letter-spacing: -0.01em; }
+.item-title   { font-weight: 400; color: var(--dark); line-height: 1.2; letter-spacing: -0.01em; }
+.item-date    { font-size: 13px; color: rgba(0,0,0,0.5); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+.item-clients { font-size: 11px; color: rgba(0,0,0,0.55); line-height: 1.4; text-transform: uppercase; letter-spacing: 0.04em; width: 100%; }
+
+/* Small cards — sized by the CSS grid parent */
+.card-sm { min-width: 0; min-height: 0; }
+
+/* Contact */
+.card-contact { display: flex; flex-direction: column; align-items: center; padding: 24px 32px 32px; gap: 0px; }
+.contact-icons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+}
+.contact-icon  { font-size: 92px; display: block; transform: rotate(-13deg) translateX(-40px); transition: transform 0.2s; line-height: 1; }
+.contact-icon:hover { transform: rotate(-13deg) scale(1.1); }
+.contact-icon-linkedin { transform: rotate(26deg) translateX(40px);margin-top: -30px; }
+.contact-icon-linkedin:hover { transform: rotate(26deg) scale(1.1); }
+.contact-icon-linkedin img { width: 92px; height: 92px; object-fit: contain; border-radius: 14px; }
+
+/* Location */
+.card-location { position: relative; overflow: hidden; }
+.location-bg   { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 40px; }
+.location-avatar { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.location-avatar:hover { transform: scale(1.5);} 
+.location-chip  { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.88); border-radius: 100px; padding: 10px 16px; backdrop-filter: blur(6px); }
+.location-pin   { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+.location-text  { display: flex; flex-direction: column; }
+.location-label { font-size: 11px; font-weight: 500; color: rgba(15,20,29,0.65); line-height: 1.3; letter-spacing: -0.01em; }
+.location-city  { font-size: 14px; font-weight: 600; color: var(--dark-blue); line-height: 1.3; letter-spacing: -0.01em; }
+
+/* Resume */
+.card-resume { display: flex; align-items: center; justify-content: center; }
+.resume-btn  { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border: 1.5px solid var(--dark-blue); border-radius: 100px; font-size: 17px; font-weight: 500; color: var(--dark-blue); letter-spacing: -0.01em; white-space: nowrap; transition: background 0.2s; }
+.resume-btn:hover { background: rgba(15,20,29,0.05); }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1100px) {
+  .about-main   { position: static; overflow: visible; flex-direction: column; padding: 24px; }
+  .about-left   { width: 100%; height: 440px; }
+  .chat-scroll  { justify-content: flex-end; }
+  .card-info    { padding: 24px 32px 40px; }
+}
+
+@media (max-width: 768px) {
+  .nav          { flex-wrap: wrap; height: auto; padding: 16px; gap: 16px; position: static; }
+  .nav-pill     { position: static; transform: none; order: 3; width: 100%; justify-content: center; }
+  .nav-logo     { order: 1; }
+  .nav-contact-btn { order: 2; margin-left: auto; }
+  .about-main   { top: 0; padding: 16px; }
+  .about-left   { height: 380px; }
+  .cards-row    { flex-wrap: wrap; }
+  .card-info    { flex: 1 1 260px; height: auto; min-height: 280px; }
+  .card-sm      { flex: 1 1 240px; width: auto; height: 260px; }
+}

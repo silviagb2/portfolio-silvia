@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDL Design System – Silvia Gutierrez</title>
+  <link rel="stylesheet" href="fdl-design-system.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;600&family=Lato:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-name">Silvia Gutierrez</span>
+    </a>
+    <div class="nav-pill">
+      <a href="index.html" class="nav-pill-link active">Work</a>
+      <a href="about.html" class="nav-pill-link">About</a>
+    </div>
+    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact</a>
+  </nav>
+
+  <main class="case-main">
+
+    <!-- HEADER -->
+    <section class="cs-header">
+      <h1 class="cs-header-title">Fine Dining Lovers<br>Design System</h1>
+      <div class="cs-header-img">
+        <img src="images/ds-case/header-ds.png" alt="FDL Design System" />
+      </div>
+    </section>
+
+    <!-- INTRO INFO BAR -->
+    <div class="intro-info">
+      <div class="intro-info-item">
+        <p class="intro-label">Client</p>
+        <p class="intro-value">Sanpellegrino</p>
+      </div>
+      <div class="intro-info-item">
+        <p class="intro-label">Year</p>
+        <p class="intro-value">Jan 2026–Present</p>
+      </div>
+      <div class="intro-info-item">
+        <p class="intro-label">Role</p>
+        <p class="intro-value">Product Designer</p>
+      </div>
+      <div class="intro-info-item">
+        <p class="intro-label">Platform</p>
+        <p class="intro-value">Web</p>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="ds-content">
+      <div class="ds-intro">
+        <p class="ds-tagline">CASE STUDY</p>
+        <h2 class="ds-intro-title">Building a Scalable Foundation<br>for Growth</h2>
+        <p class="ds-intro-desc">How we are evolving a simple UI library into a robust Design System to increase consistency, improve collaboration, and support the future growth of the Fine Dining Lovers platform.</p>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="ds-content ds-section-gap">
+      <p class="ds-label">THE PROBLEM</p>
+      <h2 class="ds-heading">The Growing Pains of<br>a Successful Platform</h2>
+      <p class="ds-body">Following the successful redesign of Fine Dining Lovers, the platform was growing fast. However, our internal design tools were not keeping pace. Our initial UI library was becoming a source of challenges:</p>
+      <div class="ds-pain-points">
+        <div class="ds-pain-point">
+          <h4 class="ds-pain-title">Inconsistencies</h4>
+          <p class="ds-pain-desc">Different teams were creating slightly different versions of the same components, leading to a fragmented user experience.</p>
+        </div>
+        <div class="ds-pain-point">
+          <h4 class="ds-pain-title">Inefficiency</h4>
+          <p class="ds-pain-desc">Development was slowing down as engineers had to rebuild components or guess at design specifications.</p>
+        </div>
+        <div class="ds-pain-point">
+          <h4 class="ds-pain-title">Scalability Issues</h4>
+          <p class="ds-pain-desc">A strategic decision to update our responsive breakpoints forced us to make time-consuming manual adjustments.</p>
+        </div>
+      </div>
+      <p class="ds-callout">We realized we didn't just need a new library; we needed a new way of working. We needed a true Design System.</p>
+    </section>
+
+    <!-- GOAL -->
+    <section class="ds-content ds-section-gap">
+      <p class="ds-label">OUR GOAL</p>
+      <h2 class="ds-heading">A System for Speed<br>and Consistency</h2>
+      <p class="ds-body">Our team's goal was to build a single source of truth for both designers and developers. We defined three key objectives for the new Design System:</p>
+      <div class="ds-goal-cards">
+        <div class="ds-goal-card">
+          <span class="ds-goal-num">01</span>
+          <h3 class="ds-goal-title">Increase Consistency</h3>
+          <p class="ds-goal-desc">Ensure a unified brand and user experience across the entire platform.</p>
+        </div>
+        <div class="ds-goal-card">
+          <span class="ds-goal-num">02</span>
+          <h3 class="ds-goal-title">Improve Efficiency</h3>
+          <p class="ds-goal-desc">Help our team design and build higher-quality products faster.</p>
+        </div>
+        <div class="ds-goal-card">
+          <span class="ds-goal-num">03</span>
+          <h3 class="ds-goal-title">Establish a Shared Language</h3>
+          <p class="ds-goal-desc">Create a common vocabulary between design and engineering to improve collaboration.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH -->
+    <section class="ds-content ds-section-gap">
+      <p class="ds-label">OUR APPROACH</p>
+      <h2 class="ds-heading">Building the Foundations</h2>
+      <p class="ds-body">We started by focusing on the core foundations of our design language: architecture, typography, color, and spacing.</p>
+    </section>
+
+    <!-- Step 1 -->
+    <section class="ds-content ds-step-gap">
+      <h3 class="ds-step-title">Architecture First</h3>
+      <p class="ds-body">Before creating any components, we took a step back to define the system's architecture. A well-organized structure is key to a scalable, easy-to-use system. This planning phase ensured our system was built to last and could adapt to future needs.</p>
+      <div class="ds-img-block">
+        <img src="images/ds-case/structure-ds.png" alt="Design System structure diagram" />
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="ds-content ds-step-gap">
+      <h3 class="ds-step-title">Revamping Typography</h3>
+      <p class="ds-body">Our typography was the first foundation we rebuilt, as it was directly impacted by the new breakpoints. We simplified our type scale and used Figma's Modes to handle the new responsive breakpoints. This allows us to define our typographic styles once and easily see how they adapt across different screens.</p>
+      <div class="ds-img-block">
+        <img src="images/ds-case/typography-ds.png" alt="Typography scale and primitives" />
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="ds-content ds-step-gap">
+      <h3 class="ds-step-title">Creating a Smart Color System</h3>
+      <p class="ds-body">We audited our color palette to make it more intentional. We simplified the palette, clarified naming conventions, and introduced semantic tokens — which describe a color's purpose in the UI (e.g., <em>color-background-primary</em>). This enforces consistency, makes maintenance easy, and prepares our system for future features like Dark Mode.</p>
+      <div class="ds-img-block">
+        <img src="images/ds-case/color-ds.png" alt="Color semantic tokens" />
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="ds-content ds-step-gap">
+      <h3 class="ds-step-title">Establishing a Consistent Spacing System</h3>
+      <p class="ds-body">Before this project, we had no formal spacing system, which led to inconsistent layouts. We created a comprehensive spacing system based on a reusable, token-based scale — defining values for both internal spacing (paddings inside components) and external spacing (margins and gaps between components). Built using Figma's Modes, our layouts now adapt intelligently and consistently across all new breakpoints.</p>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="ds-impact-section">
+      <div class="ds-impact-inner">
+        <div class="ds-impact-header">
+          <p class="ds-impact-tag">IMPACT & NEXT STEPS</p>
+          <h2 class="ds-impact-title">An Ongoing Foundation</h2>
+          <p class="ds-impact-desc">This is an ongoing project, but by building these strong foundations, we are already seeing a positive impact on our team's workflow.</p>
+        </div>
+        <div class="ds-impact-cols">
+          <div class="ds-impact-col">
+            <h3 class="ds-impact-col-title">Impact so far</h3>
+            <p class="ds-impact-col-body">Our team now has a single source of truth for typography, color, and spacing. This has reduced ambiguity, improved our design–developer handoff, and laid a scalable foundation for the future.</p>
+          </div>
+          <div class="ds-impact-col">
+            <h3 class="ds-impact-col-title">What's next</h3>
+            <p class="ds-impact-col-body">Our work on the Design System continues, with a clear roadmap to increase its value:</p>
+            <div class="ds-roadmap">
+              <div class="ds-roadmap-item">
+                <span class="ds-roadmap-badge">01</span>
+                <p>Build out our first set of core components — buttons, inputs, and cards — using the new tokens.</p>
+              </div>
+              <div class="ds-roadmap-item">
+                <span class="ds-roadmap-badge">02</span>
+                <p>Propose the adoption of a tool like Storybook to create a live, interactive library. This will bridge the gap between design and development, ensuring our code is always a true reflection of our design system.</p>
+              </div>
+              <div class="ds-roadmap-item">
+                <span class="ds-roadmap-badge">03</span>
+                <p>Establish a clear governance model to define how the system will be maintained and updated by the team in the long term.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > lastY && y > 96) nav.classList.add('nav--hidden');
+      else nav.classList.remove('nav--hidden');
+      lastY = y;
+    });
+  </script>
+
+</body>
+</html>
