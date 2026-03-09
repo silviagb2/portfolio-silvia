@@ -409,6 +409,55 @@ img { display: block; }
 }
 
 /* =============================================
+   NEXT PROJECT FOOTER
+   ============================================= */
+.cs-next {
+  margin: 60px 100px 40px;
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.55) 0, rgba(0,0,0,0.55) 24px, transparent 24px, transparent 40px);
+  background-size: 40px 2px;
+  background-repeat: repeat-x;
+  background-position: top;
+}
+.cs-next-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 48px 0;
+  transition: opacity 0.2s ease;
+}
+.cs-next-link:hover { opacity: 1; }
+.cs-next-label {
+  font-family: var(--font-lato);
+  font-size: 16px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--dark);
+  margin-bottom: 10px;
+}
+.cs-next-title-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.cs-next-title {
+  font-family: var(--font-lora);
+  font-size: 88px; font-weight: 400;
+  color: var(--dark);
+  line-height: 1; letter-spacing: -0.03em;
+}
+.cs-next-arrow {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dark);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.cs-next-link:hover .cs-next-arrow {
+  background: var(--dark);
+  color: var(--white);
+}
+
+/* =============================================
    RESPONSIVE — MOBILE
    ============================================= */
 @media (max-width: 768px) {
@@ -465,4 +514,9 @@ img { display: block; }
   .ds-impact-inner { padding: 48px 28px 56px; border-radius: 28px; gap: 40px; }
   .ds-impact-title { font-size: 36px; }
   .ds-impact-cols { flex-direction: column; gap: 40px; }
+
+  /* NEXT PROJECT */
+  .cs-next { margin: 40px 0 0; }
+  .cs-next-link { padding: 40px 24px; }
+  .cs-next-title { font-size: 48px; }
 }
