@@ -45,7 +45,7 @@ img { display: block; }
 .nav--hidden { transform: translateY(-100%); }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-name {
-  font-size: 15px; font-weight: 500;
+  font-size: 17px; font-weight: 500;
   color: var(--dark); letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -86,7 +86,7 @@ img { display: block; }
    ============================================= */
 .cs-header {
   position: relative;
-  height: 754px;
+  height: 680px;
   background: linear-gradient(160deg, #e8d5c2 0%, #c07050 100%);
   border-radius: 0 0 45px 45px;
   overflow: hidden;
@@ -95,7 +95,7 @@ img { display: block; }
   position: absolute;
   top: 120px; left: 50%; transform: translateX(-50%);
   font-family: var(--font-lora);
-  font-size: 80px; font-weight: 400;
+  font-size: 72px; font-weight: 400;
   color: var(--black);
   text-align: center;
   line-height: 1.1; letter-spacing: -0.03em;
@@ -104,12 +104,25 @@ img { display: block; }
 .cs-header-img {
   position: absolute;
   bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 1100px;
+  width: 920px;
+  height: 380px;
 }
-.cs-header-img img {
-  width: 100%;
+.cs-header-layer {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
   height: auto;
-  display: block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+/* Icons — back, smallest */
+.cs-header-layer:nth-child(1) { width: 710px; top: 0;    z-index: 1; }
+/* Colors — middle */
+.cs-header-layer:nth-child(2) { width: 810px; top: 65px; z-index: 2; }
+/* Typography — front, largest */
+.cs-header-layer:nth-child(3) { width: 920px; top: 130px; z-index: 3; }
+
+.cs-header-layer.is-hovered {
+  transform: translateX(-50%) translateY(-20px);
+  /* no z-index change: stays in its natural position in the stack */
 }
 
 /* =============================================
@@ -402,6 +415,7 @@ img { display: block; }
 
   /* NAV */
   .nav { padding: 0 20px; }
+  .nav-name { font-size: 16px; }
   .nav-name-last { display: none; }
   .nav-pill-link { padding: 9px 16px; font-size: 14px; }
   .nav-contact-btn { padding: 7px 14px; font-size: 14px; }
@@ -416,10 +430,15 @@ img { display: block; }
   }
   .cs-header-img {
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    transform: none;
+    height: 240px;
   }
+  .cs-header-layer { left: 50%; transform: translateX(-50%); }
+  .cs-header-layer:nth-child(1) { width: 77%; top: 0; }
+  .cs-header-layer:nth-child(2) { width: 88%; top: 44px; }
+  .cs-header-layer:nth-child(3) { width: 100%; top: 88px; }
 
   /* INTRO INFO */
   .intro-info {

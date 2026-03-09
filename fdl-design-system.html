@@ -28,7 +28,9 @@
     <section class="cs-header">
       <h1 class="cs-header-title">Fine Dining Lovers<br>Design System</h1>
       <div class="cs-header-img">
-        <img src="images/ds-case/header-ds.png" alt="FDL Design System" />
+        <img src="images/ds-case/header/Icons.png"      alt="" class="cs-header-layer" />
+        <img src="images/ds-case/header/Colors.png"     alt="" class="cs-header-layer" />
+        <img src="images/ds-case/header/Typography.png" alt="" class="cs-header-layer" />
       </div>
     </section>
 
@@ -193,6 +195,27 @@
       else nav.classList.remove('nav--hidden');
       lastY = y;
     });
+
+    // Filing-cabinet hover: lift each layer based on cursor Y position
+    (function () {
+      const imgWrap = document.querySelector('.cs-header-img');
+      const layers  = Array.from(document.querySelectorAll('.cs-header-layer'));
+      if (!imgWrap || !layers.length) return;
+
+      // Matches the `top` values of Colors and Typography layers
+      const THRESHOLDS = [65, 130];
+
+      imgWrap.addEventListener('mousemove', (e) => {
+        const rect = imgWrap.getBoundingClientRect();
+        const cy = e.clientY - rect.top;
+        const idx = cy < THRESHOLDS[0] ? 0 : cy < THRESHOLDS[1] ? 1 : 2;
+        layers.forEach((l, i) => l.classList.toggle('is-hovered', i === idx));
+      });
+
+      imgWrap.addEventListener('mouseleave', () => {
+        layers.forEach(l => l.classList.remove('is-hovered'));
+      });
+    })();
   </script>
 
 </body>

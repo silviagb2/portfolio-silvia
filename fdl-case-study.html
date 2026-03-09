@@ -29,7 +29,10 @@
     <section class="cs-header">
       <h1 class="cs-header-title">Fine Dining Lovers</h1>
       <div class="cs-header-img">
-        <img src="images/fdl-case/header.png" alt="Fine Dining Lovers app screens" />
+        <img src="images/fdl-case/header.png" alt="" class="cs-header-mobile-img" />
+        <img src="images/fdl-case/header/MB_ 375-Homepage.png"                          alt="" class="cs-header-layer cs-header-layer--left" />
+        <img src="images/fdl-case/header/MB_ 375-Restaurant Map (Map) -- Default.png"   alt="" class="cs-header-layer cs-header-layer--center" />
+        <img src="images/fdl-case/header/MB_Restautant Detail--Logged with Lists.png"   alt="" class="cs-header-layer cs-header-layer--right" />
       </div>
     </section>
 
@@ -613,6 +616,38 @@
     }
     lastY = y;
   });
+
+  // Phone header hover: detect which phone by viewport X position
+  (function () {
+    const header = document.querySelector('.cs-header');
+    const left   = document.querySelector('.cs-header-layer--left');
+    const center = document.querySelector('.cs-header-layer--center');
+    const right  = document.querySelector('.cs-header-layer--right');
+    if (!header || !left || !center || !right) return;
+
+    const layers = [left, center, right];
+
+    // Phone centers in the 1440px Figma frame: left=430, center=757, right=1291
+    // Thresholds at midpoints: 593 and 1024 (as % of 1440)
+    const T1 = 593 / 1440;
+    const T2 = 1024 / 1440;
+
+    header.addEventListener('mousemove', (e) => {
+      const rect   = header.getBoundingClientRect();
+      const xRatio = (e.clientX - rect.left) / rect.width;
+
+      let hovered;
+      if (xRatio < T1)      hovered = left;
+      else if (xRatio < T2) hovered = center;
+      else                  hovered = right;
+
+      layers.forEach(l => l.classList.toggle('is-hovered', l === hovered));
+    });
+
+    header.addEventListener('mouseleave', () => {
+      layers.forEach(l => l.classList.remove('is-hovered'));
+    });
+  })();
 </script>
 </body>
 </html>
