@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <title>Silvia Gutierrez</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NOTIFICATION — fija arriba centrada -->
+
+  <div class="notif" id="notif">
+    <div class="notif-icon" id="notif-icon">🗺️</div>
+    <div class="notif-text">
+      <strong id="notif-title"></strong>
+      <span id="notif-sub"></span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
+    </a>
+    <div class="nav-pill">
+      <a href="index.html" class="nav-pill-link active">Work</a>
+      <a href="about.html" class="nav-pill-link">About</a>
+    </div>
+    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact</a>
+  </nav>
+
+  <!-- STAGE — zona de cards libremente arrastrables -->
+  <div class="stage" id="stage">
+
+    <!-- CARD 1 — Restaurant Map -->
+    <div class="card" id="card-1"
+         data-title="Fine Dining Lovers"
+         data-sub="View Case Study"
+         data-icon="👩🏻‍🍳">
+      <div class="card-inner bg-blue">
+        <div class="phone-wrap">
+          <img
+            src="images/image-fdl-card.png"
+            alt="Restaurant Map"
+            class="phone-img"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 — FDL Design System -->
+    <div class="card" id="card-2"
+         data-title="FDL Design System"
+         data-sub="View Case Study"
+         data-icon="◈">
+      <div class="card-inner bg-ds">
+        <img src="images/design-system-Card.png" alt="FDL Design System" class="ds-card-img" />
+      </div>
+    </div>
+
+    <!-- CARD 4 — Bio -->
+    <div class="card" id="card-4"
+         data-title="Hi, I'm Silvia"
+         data-sub="About me"
+         data-icon="👋">
+      <div class="card-inner card-bio">
+        <img src="images/bio-card-bg.jpg" alt="" class="bio-bg" />
+        <p class="bio-text">Hi, I'm Silvia.<br>Product designer.<br>Cat assistant.</p>
+        <div class="bio-multiply-wrap">
+          <div class="bio-multiply-btn">
+            Show me the cat
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card" id="card-3"
+         data-title="Working on my next case"
+         data-sub="Coming Soon"
+         data-icon="🚧">
+      <div class="card-inner card-wip">
+        <img src="images/smiski-wip.png" alt="Work in Progress" class="wip-img" />
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
