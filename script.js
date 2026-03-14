@@ -31,8 +31,9 @@ if (isMobile) {
 
   const mobileW = Math.min(SW * 0.88, 380);
 
-  CARD_DEFS.forEach((def, i) => {
+  CARD_DEFS.filter(d => d.id !== 'card-4').forEach((def, i) => {
     const el = document.getElementById(def.id);
+    el.style.display = 'block';
     const cardW = def.id === 'card-3' ? Math.round(mobileW * 0.65) : mobileW;
     const mobileH = Math.round(cardW * def.fh / def.fw);
     el.style.width  = cardW + 'px';

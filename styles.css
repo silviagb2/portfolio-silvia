@@ -329,6 +329,7 @@
 }
 
 @media (max-width: 768px) {
+  #card-4 { display: none !important; }
   .nav { padding: 0 20px; }
   .nav-name { font-size: 16px; }
   .nav-name-last { display: none; }
