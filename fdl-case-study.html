@@ -8,19 +8,10 @@
   <link rel="stylesheet" href="fdl-case-study.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;600&family=Lato:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
-<body>
+<body data-nav-active="work">
 
   <!-- NAVBAR -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">
-      <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
-    </a>
-    <div class="nav-pill">
-      <a href="index.html" class="nav-pill-link active">Work</a>
-      <a href="about.html" class="nav-pill-link">About</a>
-    </div>
-    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact</a>
-  </nav>
+  <div id="nav-root"></div>
 
   <!-- CONTENT -->
   <main class="case-main">
@@ -52,7 +43,7 @@
       </div>
       <div class="intro-info-item">
         <p class="intro-label">Platform</p>
-        <p class="intro-value">Web & Mobile</p>
+        <p class="intro-value">Web</p>
       </div>
     </div>
 
@@ -606,28 +597,16 @@
     <section class="cs-next">
       <a href="fdl-design-system.html" class="cs-next-link">
         <span class="cs-next-label">Next Project</span>
-        <div class="cs-next-title-row">
-          <h2 class="cs-next-title">FDL Design System</h2>
-          <span class="cs-next-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7H13M13 7L7.5 1.5M13 7L7.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
+        <h2 class="cs-next-title">FDL Design System</h2>
+        <span class="cs-next-arrow">→</span>
       </a>
     </section>
 
   </main>
 
-<script>
-  const nav = document.querySelector('.nav');
-  let lastY = 0;
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if (y > lastY && y > 96) {
-      nav.classList.add('nav--hidden');
-    } else {
-      nav.classList.remove('nav--hidden');
-    }
-    lastY = y;
-  });
+  <script src="components/nav.js"></script>
 
+<script>
   // Phone header hover: detect which phone by viewport X position
   (function () {
     const header = document.querySelector('.cs-header');

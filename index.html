@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400&display=swap" rel="stylesheet" />
 </head>
-<body>
+<body data-nav-active="work">
 
   <!-- NOTIFICATION — fija arriba centrada -->
 
@@ -21,16 +21,7 @@
   </div>
 
   <!-- NAVBAR -->
-  <nav class="nav">
-    <a href="#" class="nav-logo">
-      <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
-    </a>
-    <div class="nav-pill">
-      <a href="index.html" class="nav-pill-link active">Work</a>
-      <a href="about.html" class="nav-pill-link">About</a>
-    </div>
-    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact</a>
-  </nav>
+  <div id="nav-root"></div>
 
   <!-- STAGE — zona de cards libremente arrastrables -->
   <div class="stage" id="stage">
@@ -89,6 +80,7 @@
 
   </div>
 
+  <script src="components/nav.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   <script src="script.js"></script>
 </body>

@@ -8,19 +8,10 @@
   <link rel="stylesheet" href="about.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
-<body>
+<body data-nav-active="about">
 
   <!-- NAVBAR -->
-  <nav class="nav" aria-label="Main navigation">
-    <a href="index.html" class="nav-logo">
-      <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
-    </a>
-    <div class="nav-pill">
-      <a href="index.html" class="nav-pill-link">Work</a>
-      <a href="about.html" class="nav-pill-link active" aria-current="page">About</a>
-    </div>
-    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact<span class="sr-only"> (opens in new tab)</span></a>
-  </nav>
+  <div id="nav-root"></div>
 
   <!-- CONTENT -->
   <main class="about-main">
@@ -605,16 +596,7 @@
     });
   </script>
 
-  <script>
-    const nav = document.querySelector('.nav');
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y > lastY && y > 96) nav.classList.add('nav--hidden');
-      else nav.classList.remove('nav--hidden');
-      lastY = y;
-    });
-  </script>
+  <script src="components/nav.js"></script>
 
 </body>
 </html>
