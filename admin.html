@@ -144,8 +144,24 @@
 
     .message-item.unread { border-left: 3px solid #c8d8f0; }
 
+    .message-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .message-time    { font-size: 12px; color: #6b6b6b; white-space: nowrap; }
+    .message-session {
+      font-size: 11px;
+      color: #4a6a9a;
+      background: #eef3fa;
+      border-radius: 100px;
+      padding: 2px 8px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
     .message-content { font-size: 15px; line-height: 1.5; flex: 1; }
-    .message-time    { font-size: 12px; color: #6b6b6b; white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
     .message-unread-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -394,8 +410,13 @@
           el.className = 'message-item' + (msg.read ? '' : ' unread');
           el.innerHTML = `
             ${!msg.read ? '<div class="message-unread-dot"></div>' : ''}
-            <div class="message-content">${msg.content}</div>
-            <div class="message-time">${formatTime(msg.created_at)}</div>
+            <div class="message-content">
+              ${msg.content}
+              <div class="message-meta">
+                <span class="message-time">${formatTime(msg.created_at)}</span>
+                ${msg.session_id ? `<span class="message-session">sesión ${msg.session_id}</span>` : ''}
+              </div>
+            </div>
           `;
           if (!msg.read) {
             el.addEventListener('click', async () => {
@@ -418,31 +439,40 @@
       if (!reactions.length) {
         reactionsGrid.innerHTML = '<div class="empty-state">Aún no hay reacciones. ¡Cuando alguien reaccione a tus mensajes aparecerán aquí!</div>';
       } else {
-        // group by message_index
+        // group by message_index, keep latest date and sessions
         const grouped = {};
         reactions.forEach(r => {
-          if (!grouped[r.message_index]) grouped[r.message_index] = {};
-          grouped[r.message_index][r.emoji] = (grouped[r.message_index][r.emoji] || 0) + 1;
+          if (!grouped[r.message_index]) grouped[r.message_index] = { emojis: {}, dates: [], sessions: new Set() };
+          grouped[r.message_index].emojis[r.emoji] = (grouped[r.message_index].emojis[r.emoji] || 0) + 1;
+          if (r.created_at) grouped[r.message_index].dates.push(r.created_at);
+          if (r.session_id) grouped[r.message_index].sessions.add(r.session_id);
         });
 
         reactionsGrid.innerHTML = '';
         Object.entries(grouped)
           .sort((a, b) => a[0] - b[0])
-          .forEach(([idx, emojis]) => {
+          .forEach(([idx, data]) => {
             const card = document.createElement('div');
             card.className = 'reaction-card';
             const label = MESSAGE_LABELS[idx] || `Mensaje ${parseInt(idx)+1}`;
-            const total = Object.values(emojis).reduce((a,b) => a+b, 0);
+            const total = Object.values(data.emojis).reduce((a,b) => a+b, 0);
+            const latestDate = data.dates.length ? formatTime(data.dates.sort().reverse()[0]) : '';
+            const sessionList = [...data.sessions].map(s => `<span class="message-session">sesión ${s}</span>`).join('');
             card.innerHTML = `
               <div class="reaction-card-top">
                 <div class="reaction-msg-label">${label}</div>
                 <div style="font-size:12px;color:#6b6b6b;">${total} total</div>
               </div>
               <div class="reaction-emoji-list">
-                ${Object.entries(emojis).map(([emoji, count]) =>
+                ${Object.entries(data.emojis).map(([emoji, count]) =>
                   `<div class="reaction-pill">${emoji}<span class="reaction-pill-count">${count}</span></div>`
                 ).join('')}
               </div>
+              ${latestDate || sessionList ? `
+              <div class="message-meta" style="margin-top:10px;">
+                ${latestDate ? `<span class="message-time">Último: ${latestDate}</span>` : ''}
+                ${sessionList}
+              </div>` : ''}
             `;
             reactionsGrid.appendChild(card);
           });

@@ -409,6 +409,13 @@
     const SUPA_URL = 'https://ncgpeftflcvlvedmpfno.supabase.co';
     const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZ3BlZnRmbGN2bHZlZG1wZm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1ODU3OTUsImV4cCI6MjA4OTE2MTc5NX0.-5kdnQhtjg_4nebCeReHEE-rYZAulSlQYjA0M2LK5Zg';
 
+    // ── Session ID — unique per browser visit ─────────────────────────────
+    let SESSION_ID = sessionStorage.getItem('portfolio_session');
+    if (!SESSION_ID) {
+      SESSION_ID = Math.random().toString(36).slice(2, 7).toUpperCase();
+      sessionStorage.setItem('portfolio_session', SESSION_ID);
+    }
+
     async function saveReaction(messageIndex, emoji) {
       try {
         await fetch(`${SUPA_URL}/rest/v1/reactions`, {
@@ -419,7 +426,7 @@
             'Authorization': `Bearer ${SUPA_KEY}`,
             'Prefer': 'return=minimal'
           },
-          body: JSON.stringify({ message_index: messageIndex, emoji })
+          body: JSON.stringify({ message_index: messageIndex, emoji, session_id: SESSION_ID })
         });
       } catch(e) { console.log('reaction save failed', e); }
     }
@@ -434,7 +441,7 @@
             'Authorization': `Bearer ${SUPA_KEY}`,
             'Prefer': 'return=minimal'
           },
-          body: JSON.stringify({ content })
+          body: JSON.stringify({ content, session_id: SESSION_ID })
         });
       } catch(e) { console.log('message save failed', e); }
     }

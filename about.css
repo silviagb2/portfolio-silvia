@@ -35,18 +35,17 @@
 
   /* Visible focus ring for keyboard users */
   .notes-folder:focus-visible {
-    outline: 2px solid #4a7fc1;
+    outline: 1.5px solid rgba(0,0,0,0.5);
     outline-offset: 2px;
   }
   .chat-input:focus-visible {
-    outline: 2px solid #4a7fc1;
-    outline-offset: 0;
+    outline: none;
   }
   .nav-pill-link:focus-visible,
   .nav-contact-btn:focus-visible,
   .resume-btn:focus-visible,
   .contact-icon:focus-visible {
-    outline: 2px solid #4a7fc1;
+    outline: 1.5px solid rgba(0,0,0,0.5);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -678,7 +677,7 @@
   }
 
   .chat-input::placeholder { color: var(--grey); }
-  .chat-input:focus { border-color: #888; }
+  .chat-input:focus { border-color: rgba(0,0,0,0.4); }
 
   .chat-send-btn {
     position: absolute;
