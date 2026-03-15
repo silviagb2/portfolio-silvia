@@ -11,101 +11,218 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <a href="index.html" class="nav-logo">
       <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
     </a>
     <div class="nav-pill">
       <a href="index.html" class="nav-pill-link">Work</a>
-      <a href="about.html" class="nav-pill-link active">About</a>
+      <a href="about.html" class="nav-pill-link active" aria-current="page">About</a>
     </div>
-    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact</a>
+    <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn">Contact<span class="sr-only"> (opens in new tab)</span></a>
   </nav>
 
   <!-- CONTENT -->
   <main class="about-main">
 
-    <!-- LEFT: scrollable chat -->
-    <div class="about-left">
-      <div class="chat-scroll" id="chat-scroll">
-        <div class="chat-container" id="chat-container"></div>
+    <!-- LEFT: chat + hint above -->
+    <div class="about-left-wrap">
+      <div class="about-left">
+        <div id="chat-loading" aria-label="Loading messages" role="status" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--card-bg);border-radius:20px;z-index:5;">
+          <div aria-hidden="true" style="display:flex;gap:5px;align-items:center;">
+            <div style="width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,0.15);animation:typing-bounce 1.2s infinite ease-in-out;animation-delay:0s;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,0.15);animation:typing-bounce 1.2s infinite ease-in-out;animation-delay:0.2s;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,0.15);animation:typing-bounce 1.2s infinite ease-in-out;animation-delay:0.4s;"></div>
+          </div>
+          <p style="font-size:13px;color:rgba(0,0,0,0.3);font-family:'Inter',sans-serif;letter-spacing:-0.01em;margin:0;">Not ghosting you, just loading...</p>
+        </div>
+        <div class="chat-scroll" id="chat-scroll" style="position:relative;">
+          <div class="chat-container" id="chat-container" aria-live="polite" aria-label="Conversation"></div>
+        </div>
+        <div class="chat-input-bar" id="chat-input-bar">
+          <label for="chat-input" class="sr-only">Send a message</label>
+          <textarea id="chat-input" class="chat-input" placeholder="Drop me a message... I'll actually read this 👀" maxlength="300" rows="1"></textarea>
+          <button id="chat-send" class="chat-send-btn" aria-label="Send">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124" /><path d="M6.5 12h14.5" /></svg>
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- RIGHT: static cards -->
     <div class="about-right">
 
+      <!-- NOTES APP BLOCK -->
       <div class="cards-row">
-        <div class="card card-info">
-          <div class="card-tag">Work experience</div>
-          <ul class="card-list">
-            <li class="card-list-item card-list-item--expanded">
-              <div class="item-header">
-                <div class="item-role">
-                  <span class="item-company">Ogilvy</span>
-                  <span class="item-title">Product Designer</span>
-                </div>
-                <span class="item-date">2021 – Present</span>
-              </div>
-              <span class="item-clients">Clients: Audi, Nestlé Global, SanPellegrino, Purina, FGC, IQOS, Volkswagen Group</span>
-            </li>
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Hostess &amp; Promoter</span>
-                <span class="item-title">Account Manager</span>
-              </div>
-              <span class="item-date">2018-2020</span>
-            </li>
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Doble36</span>
-                <span class="item-title">Event Planner</span>
-              </div>
-              <span class="item-date">2017-2018</span>
-            </li>
-          </ul>
-        </div>
+        <div class="card notes-app">
 
-        <div class="card card-info">
-          <div class="card-tag">Education</div>
-          <ul class="card-list">
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Design System Pro</span>
-                <span class="item-title">Shift+R · Raúl Marin</span>
-              </div>
-              <span class="item-date">Present</span>
-            </li>
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Bit Computer Training</span>
-                <span class="item-title">Front-end Development</span>
-              </div>
-              <span class="item-date">2021</span>
-            </li>
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Ironhack</span>
-                <span class="item-title">UX/UI Design</span>
-              </div>
-              <span class="item-date">2020</span>
-            </li>
-            <li class="card-list-item">
-              <div class="item-role">
-                <span class="item-company">Universitat Pompeu Fabra</span>
-                <span class="item-title">Publicidad y Relaciones Públicas</span>
-              </div>
-              <span class="item-date">2013-2017</span>
-            </li>
-          </ul>
-        </div>
+          <!-- Sidebar — floating sub-card with its own shadow, dots inside -->
+          <div class="notes-sidebar">
+            <div class="notes-dots" aria-hidden="true">
+              <span class="notes-toolbar-dot"></span>
+              <span class="notes-toolbar-dot"></span>
+              <span class="notes-toolbar-dot"></span>
+            </div>
+            <p class="notes-sidebar-title">My notes</p>
+            <ul class="notes-folders" role="tablist" aria-label="About sections">
+              <li class="notes-folder notes-folder--active" data-tab="experience" role="tab" aria-selected="true" aria-controls="tab-experience" tabindex="0">
+                <span class="notes-folder-icon" aria-hidden="true">📁</span>
+                <span class="notes-folder-name">Experience</span>
+                <span class="notes-folder-count">3</span>
+              </li>
+              <li class="notes-folder" data-tab="education" role="tab" aria-selected="false" aria-controls="tab-education" tabindex="-1">
+                <span class="notes-folder-icon" aria-hidden="true">📁</span>
+                <span class="notes-folder-name">Education</span>
+                <span class="notes-folder-count">4</span>
+              </li>
+              <li class="notes-folder" data-tab="learning" role="tab" aria-selected="false" aria-controls="tab-learning" tabindex="-1">
+                <span class="notes-folder-icon" aria-hidden="true">📁</span>
+                <span class="notes-folder-name">Now learning</span>
+                <span class="notes-folder-count">3</span>
+              </li>
+              <li class="notes-folder" data-tab="things" role="tab" aria-selected="false" aria-controls="tab-things" tabindex="-1">
+                <span class="notes-folder-icon" aria-hidden="true">📁</span>
+                <span class="notes-folder-name">Things I do</span>
+                <span class="notes-folder-count">5</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Content -->
+          <div class="notes-content">
+
+            <!-- Experience -->
+            <div class="notes-panel" id="tab-experience" role="tabpanel" aria-labelledby="tab-experience">
+              <h2 class="notes-panel-title">Experience <span class="notes-panel-count">3 notes</span></h2>
+              <ul class="notes-list">
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Ogilvy</span>
+                      <span class="notes-item-title">Product Designer</span>
+                    </div>
+                    <span class="notes-item-date">2021 – Present</span>
+                  </div>
+                  <span class="notes-item-clients">Audi · Nestlé Global · SanPellegrino · Purina · FGC · IQOS · Volkswagen Group</span>
+                </li>
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Hostess &amp; Promoter</span>
+                      <span class="notes-item-title">Account Manager</span>
+                    </div>
+                    <span class="notes-item-date">2018 – 2020</span>
+                  </div>
+                </li>
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Doble36</span>
+                      <span class="notes-item-title">Event Planner</span>
+                    </div>
+                    <span class="notes-item-date">2017 – 2018</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Education -->
+            <div class="notes-panel notes-panel--hidden" id="tab-education" role="tabpanel" aria-labelledby="tab-education">
+              <h2 class="notes-panel-title">Education <span class="notes-panel-count">4 notes</span></h2>
+              <ul class="notes-list">
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Design System Pro</span>
+                      <span class="notes-item-title">Shift+R · Raúl Marin</span>
+                    </div>
+                    <span class="notes-item-date">2025 – Present</span>
+                  </div>
+                </li>
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Bit Computer Training</span>
+                      <span class="notes-item-title">Front-end Development</span>
+                    </div>
+                    <span class="notes-item-date">2021</span>
+                  </div>
+                </li>
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Ironhack</span>
+                      <span class="notes-item-title">UX/UI Design Bootcamp</span>
+                    </div>
+                    <span class="notes-item-date">2018</span>
+                  </div>
+                </li>
+                <li class="notes-item notes-item--expanded">
+                  <div class="notes-item-header">
+                    <div class="notes-item-role">
+                      <span class="notes-item-company">Universitat Pompeu Fabra</span>
+                      <span class="notes-item-title">Advertising &amp; Public Relations</span>
+                    </div>
+                    <span class="notes-item-date">2013 – 2017</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Now learning -->
+            <div class="notes-panel notes-panel--hidden" id="tab-learning" role="tabpanel" aria-labelledby="tab-learning">
+              <h2 class="notes-panel-title">Now learning <span class="notes-panel-count">3 notes</span></h2>
+              <ul class="notes-list">
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Design systems</span>
+                  <span class="notes-item-body">Studying with Shift+R (Raúl Marin). Learning to build the systems I've been designing within for years.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Vibe coding</span>
+                  <span class="notes-item-body">Using Cursor + Claude to build real things without a dev team. This portfolio is proof.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">AI-assisted research</span>
+                  <span class="notes-item-body">Exploring how AI agents can speed up benchmarking and competitive analysis — the stuff that used to take days.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Things I do -->
+            <div class="notes-panel notes-panel--hidden" id="tab-things" role="tabpanel" aria-labelledby="tab-things">
+              <h2 class="notes-panel-title">Things I do <span class="notes-panel-count">5 notes</span></h2>
+              <ul class="notes-list">
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Party host</span>
+                  <span class="notes-item-body">I organize dinners and parties for my friends more often than is probably healthy. Halloween is the one everyone waits for all year. My flat has a 25-person beer pong capacity that I discovered by accident.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Unofficial pizza designer</span>
+                  <span class="notes-item-body">My partner has a pizza project. I said I'd help. Somehow "help" turned into designing the whole thing — posts, photos, branding. Still waiting for my co-founder title.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Knitter &amp; crocheter</span>
+                  <span class="notes-item-body">I knit and crochet. It's calming, it's creative, and it got completely out of hand when someone asked me to make a ring holder for their wedding. Then another person asked. Then another. I now have a waiting list I didn't ask for.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Handmade gifter</span>
+                  <span class="notes-item-body">I don't buy gifts if I can make them instead. My latest: transferring a handwritten family recipe onto a ceramic plate.</span>
+                </li>
+                <li class="notes-item notes-item--text">
+                  <span class="notes-item-company">Concert budget problem</span>
+                  <span class="notes-item-body">I spend a disproportionate amount of my income on gigs and festivals. My bank account disagrees with this hobby. I do not.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div><!-- /notes-content -->
+        </div><!-- /notes-app -->
       </div>
 
       <div class="cards-row">
         <div class="card card-sm card-contact">
-          <div class="card-tag">Contact</div>
           <div class="contact-icons">
-            <a href="mailto:silviagb2@gmail.com" class="contact-icon" aria-label="Email">💌</a>
+            <a href="/cdn-cgi/l/email-protection#36455f5a405f5751540476515b575f5a1855595b" class="contact-icon" aria-label="Email">💌</a>
             <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener"
                class="contact-icon contact-icon-linkedin" aria-label="LinkedIn">
               <img src="images/linkedin-logo.png" alt="LinkedIn" />
@@ -128,7 +245,7 @@
         <div class="card card-sm card-resume">
           <a href="CV-Silvia-Gutierrez.pdf"
              target="_blank" rel="noopener" class="resume-btn">
-            👀 View resume
+            👀 View resume<span class="sr-only"> (opens in new tab)</span>
           </a>
         </div>
       </div>
@@ -136,9 +253,9 @@
     </div>
   </main>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const CAT_IMG   = 'images/rosi-sil.png';
-    const BUBBLE_BG = '#f7f7f9';
+    const BUBBLE_BG = '#f0f0f0';
 
     // Each message: text or image, optional defaultReaction shown on load,
     // clickEmoji added (or incremented) when the bubble is clicked.
@@ -146,10 +263,11 @@
       { type:'text',  text:"Hi, I'm Silvia!",                                                                             defaultReaction:{emoji:'🧚🏻‍♀️', count:1}, clickEmoji:'🧚🏻‍♀️', typingMs:900  },
       { type:'text',  text:"But you can call me Silvi, Sil, or Zirvi—just like my Andalusian grandma used to.",          defaultReaction:null,                    clickEmoji:'👵🏻',     typingMs:1300 },
       { type:'text',  text:"For the past five years, I've been a Product Designer at Ogilvy. Demanding clients, tight deadlines, and more project types than I can count.",   defaultReaction:null,                    clickEmoji:'🤠',     typingMs:1400 },
+      { type:'text',  text:"Still at Ogilvy, but open to new opportunities — ideally a digital product team. Just leaving that here.",                                        defaultReaction:null,                    clickEmoji:'🌟',     typingMs:1400 },
       { type:'text',  text:"Though I have a dark past... I used to plan events! 👀",                                     defaultReaction:null,                    clickEmoji:'🌒',     typingMs:1100 },
       { type:'text',  text:"And this? This is my home office manager—the real boss of the house. 👇",                    defaultReaction:null,                    clickEmoji:'🫡',     typingMs:1300 },
       { type:'image', src:CAT_IMG,                                                                                        defaultReaction:{emoji:'💖', count:1},   clickEmoji:'💖',     typingMs:2000 },
-      { type:'text',  text:"Thanks for making it this far! If you have any questions or just want to chat, feel free to reach out!", defaultReaction:null,         clickEmoji:'💌',     typingMs:1400 },
+      { type:'text',  text:"You read the whole thing — respect. Drop me a line if anything caught your eye. 💌", defaultReaction:null, clickEmoji:'💌', typingMs:1400 },
     ];
 
     const scrollEl    = document.getElementById('chat-scroll');
@@ -158,11 +276,11 @@
     // ── SVG tail ──────────────────────────────────────────────────────────
     function makeTailSVG(color) {
       const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-      svg.setAttribute('width','14'); svg.setAttribute('height','20');
-      svg.setAttribute('viewBox','0 0 14 20');
+      svg.setAttribute('width','14'); svg.setAttribute('height','18');
+      svg.setAttribute('viewBox','0 0 14 18');
       svg.classList.add('chat-tail');
       const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d','M14 0 C10 5 2 12 0 20 L14 20 Z');
+      path.setAttribute('d','M14 0 L14 18 L0 18 C4 15 10 9 14 0 Z');
       path.setAttribute('fill', color);
       svg.appendChild(path);
       return svg;
@@ -194,11 +312,10 @@
 
       const row = document.createElement('div');
       row.className = 'chat-bubble-row';
-      row.appendChild(makeTailSVG(BUBBLE_BG));
 
       const bubble = document.createElement('div');
       bubble.className = 'chat-bubble chat-bubble--typing';
-      bubble.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+      bubble.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
       row.appendChild(bubble);
       el.appendChild(row);
       animateIn(el);
@@ -235,7 +352,7 @@
       const row = document.createElement('div');
       row.className = 'chat-bubble-row';
 
-      const bubbleBg = msg.type === 'image' ? '#ffffff' : BUBBLE_BG;
+      const bubbleBg = BUBBLE_BG;
       row.appendChild(makeTailSVG(bubbleBg));
 
       const bubble = document.createElement('div');
@@ -257,9 +374,14 @@
       const reactionsWrap = document.createElement('div');
       reactionsWrap.className = 'chat-reactions';
 
+      const msgIndex = MESSAGES.indexOf(msg);
+
       if (msg.defaultReaction) {
         const badge = makeBadge(msg.defaultReaction.emoji, msg.defaultReaction.count);
-        badge.addEventListener('click', () => incrementBadge(badge));
+        badge.addEventListener('click', () => {
+          incrementBadge(badge);
+          saveReaction(msgIndex, msg.defaultReaction.emoji);
+        });
         reactionsWrap.appendChild(badge);
       }
 
@@ -275,7 +397,10 @@
           const badge = makeBadge(msg.clickEmoji, 1);
           badge.style.opacity   = '0';
           badge.style.transform = 'scale(0.6)';
-          badge.addEventListener('click', () => incrementBadge(badge));
+          badge.addEventListener('click', () => {
+            incrementBadge(badge);
+            saveReaction(msgIndex, msg.clickEmoji);
+          });
           reactionsWrap.appendChild(badge);
           requestAnimationFrame(() => requestAnimationFrame(() => {
             badge.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
@@ -283,9 +408,44 @@
             badge.style.transform  = 'scale(1)';
           }));
         }
+        saveReaction(msgIndex, msg.clickEmoji);
       });
 
       return el;
+    }
+
+    // ── Supabase ──────────────────────────────────────────────────────────
+    const SUPA_URL = 'https://ncgpeftflcvlvedmpfno.supabase.co';
+    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZ3BlZnRmbGN2bHZlZG1wZm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1ODU3OTUsImV4cCI6MjA4OTE2MTc5NX0.-5kdnQhtjg_4nebCeReHEE-rYZAulSlQYjA0M2LK5Zg';
+
+    async function saveReaction(messageIndex, emoji) {
+      try {
+        await fetch(`${SUPA_URL}/rest/v1/reactions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPA_KEY,
+            'Authorization': `Bearer ${SUPA_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ message_index: messageIndex, emoji })
+        });
+      } catch(e) { console.log('reaction save failed', e); }
+    }
+
+    async function saveMessage(content) {
+      try {
+        await fetch(`${SUPA_URL}/rest/v1/messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPA_KEY,
+            'Authorization': `Bearer ${SUPA_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ content })
+        });
+      } catch(e) { console.log('message save failed', e); }
     }
 
     // ── reveal all messages with typing pauses ────────────────────────────
@@ -301,7 +461,148 @@
       });
     }
 
-    revealAll();
+    // ── loading state then reveal ─────────────────────────────────────────
+    const loadingEl = document.getElementById('chat-loading');
+
+    setTimeout(() => {
+      if (loadingEl) {
+        loadingEl.style.transition = 'opacity 0.3s ease';
+        loadingEl.style.opacity = '0';
+        setTimeout(() => { loadingEl.remove(); revealAll(); }, 300);
+      } else {
+        revealAll();
+      }
+    }, 2200);
+
+
+
+    // ── message input ─────────────────────────────────────────────────────
+    const inputEl = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+
+    async function sendMessage() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+      inputEl.value = '';
+      inputEl.classList.remove('has-text');
+      sendBtn.classList.remove('visible');
+      inputEl.disabled = true;
+      sendBtn.disabled = true;
+
+      await saveMessage(text);
+
+      // show sent bubble in chat
+      // remove tail from previous sent bubble if exists
+      const prevSentRow = container.querySelector('.chat-msg--sent:last-child .chat-bubble-sent-row');
+      if (prevSentRow) {
+        const prevTail = prevSentRow.querySelector('.chat-tail-sent');
+        const prevBubble = prevSentRow.querySelector('.chat-bubble-sent');
+        if (prevTail) prevTail.classList.remove('visible');
+        if (prevBubble) prevBubble.classList.remove('with-tail');
+      }
+
+      const confirmEl = document.createElement('div');
+      confirmEl.className = 'chat-msg chat-msg--sent';
+      confirmEl.style.opacity = '0';
+      confirmEl.style.transform = 'translateY(8px)';
+
+      const sentRow = document.createElement('div');
+      sentRow.className = 'chat-bubble-sent-row';
+
+      const sentBubble = document.createElement('div');
+      sentBubble.className = 'chat-bubble-sent with-tail';
+      sentBubble.textContent = text;
+
+      // tail — absolute, hangs outside the bubble to the right
+      const tailSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      tailSvg.setAttribute('width', '14');
+      tailSvg.setAttribute('height', '18');
+      tailSvg.setAttribute('viewBox', '0 0 14 18');
+      tailSvg.classList.add('chat-tail-sent', 'visible');
+      const tailPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      tailPath.setAttribute('d', 'M0 0 L0 18 L14 18 C9 16 1 10 0 0 Z');
+      tailPath.setAttribute('fill', '#c8d8f0');
+      tailSvg.appendChild(tailPath);
+
+      sentRow.appendChild(sentBubble);
+      sentRow.appendChild(tailSvg);
+      confirmEl.appendChild(sentRow);
+      container.appendChild(confirmEl);
+      scrollBottom();
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        confirmEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        confirmEl.style.opacity = '1';
+        confirmEl.style.transform = 'translateY(0)';
+      }));
+
+      setTimeout(() => {
+        inputEl.disabled = false;
+        sendBtn.disabled = false;
+        inputEl.placeholder = 'Drop me a message...';
+        inputEl.focus();
+      }, 500);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+
+    // show/hide send button based on input content
+    inputEl.addEventListener('input', () => {
+      const hasText = inputEl.value.trim().length > 0;
+      if (hasText) {
+        sendBtn.classList.add('visible');
+        inputEl.classList.add('has-text');
+      } else {
+        sendBtn.classList.remove('visible');
+        inputEl.classList.remove('has-text');
+      }
+    });
+  </script>
+
+  <script>
+    // ── Notes tabs ────────────────────────────────────────────────────────
+    const folders = document.querySelectorAll('.notes-folder');
+    const panels  = document.querySelectorAll('.notes-panel');
+
+    function activateTab(folder) {
+      const tab = folder.dataset.tab;
+
+      folders.forEach(f => {
+        f.classList.remove('notes-folder--active');
+        f.setAttribute('aria-selected', 'false');
+        f.setAttribute('tabindex', '-1');
+      });
+      folder.classList.add('notes-folder--active');
+      folder.setAttribute('aria-selected', 'true');
+      folder.setAttribute('tabindex', '0');
+      folder.focus();
+
+      panels.forEach(p => p.classList.add('notes-panel--hidden'));
+      const active = document.getElementById('tab-' + tab);
+      if (active) active.classList.remove('notes-panel--hidden');
+    }
+
+    folders.forEach(folder => {
+      folder.addEventListener('click', () => activateTab(folder));
+
+      // keyboard navigation: arrow keys move between tabs
+      folder.addEventListener('keydown', (e) => {
+        const list = [...folders];
+        const idx  = list.indexOf(folder);
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          activateTab(list[(idx + 1) % list.length]);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          activateTab(list[(idx - 1 + list.length) % list.length]);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateTab(folder);
+        }
+      });
+    });
   </script>
 
   <script>
