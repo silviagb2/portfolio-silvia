@@ -369,7 +369,8 @@
 
       if (msg.defaultReaction) {
         const badge = makeBadge(msg.defaultReaction.emoji, msg.defaultReaction.count);
-        badge.addEventListener('click', () => {
+        badge.addEventListener('click', (e) => {
+          e.stopPropagation();
           incrementBadge(badge);
           saveReaction(msgIndex, msg.defaultReaction.emoji);
         });
@@ -388,7 +389,8 @@
           const badge = makeBadge(msg.clickEmoji, 1);
           badge.style.opacity   = '0';
           badge.style.transform = 'scale(0.6)';
-          badge.addEventListener('click', () => {
+          badge.addEventListener('click', (e) => {
+            e.stopPropagation();
             incrementBadge(badge);
             saveReaction(msgIndex, msg.clickEmoji);
           });
