@@ -110,6 +110,50 @@
     .reaction-date { font-size: 11px; color: #bbb; }
     .new-badge { font-size: 10px; font-weight: 600; color: white; background: #c07050; border-radius: 100px; padding: 2px 7px; }
 
+    /* VISITORS */
+    .visitor-list { display: flex; flex-direction: column; gap: 10px; }
+    .visitor-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .visitor-header {
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .visitor-left { display: flex; align-items: center; gap: 10px; }
+    .visitor-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #131e2e; color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.05em; flex-shrink: 0;
+    }
+    .visitor-session { font-size: 13px; font-weight: 600; color: #131e2e; }
+    .visitor-time { font-size: 11px; color: #aaa; margin-top: 1px; }
+    .visitor-stats { display: flex; gap: 8px; }
+    .visitor-stat-pill {
+      font-size: 11px; font-weight: 500;
+      border-radius: 100px; padding: 3px 9px;
+    }
+    .visitor-stat-pill.msgs { background: #eef3fa; color: #4a6a9a; }
+    .visitor-stat-pill.reactions { background: #fdf3ee; color: #c07050; }
+    .visitor-body { padding: 12px 18px; display: flex; flex-direction: column; gap: 8px; }
+    .visitor-messages { display: flex; flex-direction: column; gap: 4px; }
+    .visitor-msg {
+      font-size: 13px; color: #131e2e; line-height: 1.4;
+      padding: 7px 12px; background: #f7f9ff;
+      border-radius: 8px; border-left: 2px solid #c8d8f0;
+    }
+    .visitor-msg-time { font-size: 11px; color: #bbb; margin-top: 2px; }
+    .visitor-reactions { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
+    .visitor-reaction-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: #6b6b6b;
+      background: #f5f5f5; border-radius: 100px; padding: 4px 10px;
+    }
+    .visitor-reaction-label { font-size: 11px; color: #aaa; }
+
     .empty-state { text-align: center; padding: 40px; color: #6b6b6b; font-size: 14px; background: white; border-radius: 14px; }
     .loading-state { text-align: center; padding: 24px; color: #aaa; font-size: 14px; }
   </style>
@@ -207,6 +251,16 @@
         <div id="reactions-grid" class="reactions-grid"><div class="loading-state">Cargando...</div></div>
       </div>
 
+      <!-- VISITORS -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">👤 Visitantes
+            <span class="section-count" id="visitors-count"></span>
+          </div>
+        </div>
+        <div id="visitors-list" class="visitor-list"><div class="loading-state">Cargando...</div></div>
+      </div>
+
     </div>
   </div>
 
@@ -214,7 +268,16 @@
     const SUPA_URL = 'https://ncgpeftflcvlvedmpfno.supabase.co';
     const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jZ3BlZnRmbGN2bHZlZG1wZm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1ODU3OTUsImV4cCI6MjA4OTE2MTc5NX0.-5kdnQhtjg_4nebCeReHEE-rYZAulSlQYjA0M2LK5Zg';
     const ADMIN_PASSWORD = 'rosi2024';
-    const MESSAGE_LABELS = ['Hi, I\'m Silvia!','Silvi / Sil / Zirvi','Product Designer at Ogilvy','Dark past... events!','Home office manager','Photo of Rosi 🐱','Drop me a message'];
+    const MESSAGE_LABELS = [
+      '🧚🏻‍♀️ Hi, I\'m Silvia!',
+      '👵🏻 Silvi / Sil / Zirvi',
+      '🤠 Product Designer at Ogilvy',
+      '🌟 Open to new opportunities',
+      '🌒 Dark past... events!',
+      '🫡 Home office manager',
+      '💖 Photo of Rosi',
+      '💌 Drop me a message'
+    ];
 
     let allMessages = [];
     let allReactions = [];
@@ -493,7 +556,97 @@
       updateStats();
       renderMessages();
       renderReactions();
+      renderVisitors();
       document.getElementById('last-updated').textContent = 'Actualizado: ' + timeAgo(new Date().toISOString());
+    }
+
+    function renderVisitors() {
+      const visitorsList = document.getElementById('visitors-list');
+
+      // Build a map of all sessions from messages + reactions
+      const sessions = {};
+
+      allMessages.forEach(msg => {
+        const sid = msg.session_id || null;
+        if (!sid) return;
+        if (!sessions[sid]) sessions[sid] = { id: sid, messages: [], reactions: [], firstSeen: msg.created_at, lastSeen: msg.created_at };
+        sessions[sid].messages.push(msg);
+        if (msg.created_at < sessions[sid].firstSeen) sessions[sid].firstSeen = msg.created_at;
+        if (msg.created_at > sessions[sid].lastSeen)  sessions[sid].lastSeen  = msg.created_at;
+      });
+
+      allReactions.forEach(r => {
+        const sid = r.session_id || null;
+        if (!sid) return;
+        if (!sessions[sid]) sessions[sid] = { id: sid, messages: [], reactions: [], firstSeen: r.created_at, lastSeen: r.created_at };
+        sessions[sid].reactions.push(r);
+        if (r.created_at < sessions[sid].firstSeen) sessions[sid].firstSeen = r.created_at;
+        if (r.created_at > sessions[sid].lastSeen)  sessions[sid].lastSeen  = r.created_at;
+      });
+
+      const sessionList = Object.values(sessions).sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen));
+      document.getElementById('visitors-count').textContent = sessionList.length ? `(${sessionList.length})` : '';
+
+      if (!sessionList.length) {
+        visitorsList.innerHTML = '<div class="empty-state">Aún no hay visitantes con sesión registrada</div>';
+        return;
+      }
+
+      visitorsList.innerHTML = '';
+      sessionList.forEach(session => {
+        const card = document.createElement('div');
+        card.className = 'visitor-card';
+
+        const msgCount = session.messages.length;
+        const reactionCount = session.reactions.length;
+
+        // Group reactions by message_index
+        const reactionsByMsg = {};
+        session.reactions.forEach(r => {
+          const label = MESSAGE_LABELS[r.message_index] || ('Mensaje ' + (parseInt(r.message_index)+1));
+          if (!reactionsByMsg[label]) reactionsByMsg[label] = [];
+          reactionsByMsg[label].push(r.emoji);
+        });
+
+        card.innerHTML = `
+          <div class="visitor-header">
+            <div class="visitor-left">
+              <div class="visitor-avatar">${session.id}</div>
+              <div>
+                <div class="visitor-session">Sesión ${session.id}</div>
+                <div class="visitor-time">${timeAgo(session.lastSeen)} · primera visita: ${formatTime(session.firstSeen)}</div>
+              </div>
+            </div>
+            <div class="visitor-stats">
+              ${msgCount ? `<span class="visitor-stat-pill msgs">💌 ${msgCount} mensaje${msgCount !== 1 ? 's' : ''}</span>` : ''}
+              ${reactionCount ? `<span class="visitor-stat-pill reactions">✨ ${reactionCount} reaccion${reactionCount !== 1 ? 'es' : ''}</span>` : ''}
+            </div>
+          </div>
+          <div class="visitor-body">
+            ${msgCount ? `
+              <div class="visitor-messages">
+                ${session.messages.map(m => `
+                  <div class="visitor-msg">
+                    ${m.content}
+                    <div class="visitor-msg-time">${formatTime(m.created_at)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+            ${reactionCount ? `
+              <div>
+                <div class="visitor-reaction-label">Reacciones:</div>
+                <div class="visitor-reactions">
+                  ${Object.entries(reactionsByMsg).map(([label, emojis]) =>
+                    `<div class="visitor-reaction-item">${[...new Set(emojis)].join('')} <span>${label}</span></div>`
+                  ).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+        visitorsList.appendChild(card);
+      });
     }
 
     setInterval(loadData, 60000);
