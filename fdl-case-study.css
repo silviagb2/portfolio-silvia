@@ -1060,7 +1060,7 @@
   
   .results-kpi-new {
     font-family: var(--font-lora);
-    font-size: 72px;
+    font-size: 48px;
     font-weight: 400;
     color: var(--white);
     letter-spacing: -0.03em;
@@ -1069,10 +1069,10 @@
   
   .results-kpi-desc {
     font-family: var(--font-lato);
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.6;
     color: rgba(255,255,255,0.65);
-    max-width: 340px;
+    max-width: 380px;
   }
   
   /* =============================================
@@ -1086,7 +1086,7 @@
   
   .learned-inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 40px;
   }
   
