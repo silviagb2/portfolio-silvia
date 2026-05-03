@@ -379,6 +379,21 @@
   .contact-icon-linkedin { transform: rotate(26deg) translateX(40px); margin-top: -30px; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .contact-icon-linkedin:hover { transform: rotate(26deg) translateX(40px) scale(1.12) translateY(-6px); }
   .contact-icon-linkedin img { width: 92px; height: 92px; object-fit: contain; border-radius: 14px; }
+
+
+  .contact-icon-email {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 92px;
+    display: block;
+    transform: rotate(-13deg) translateX(-40px);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    line-height: 1;
+  }
+  .contact-icon-email:hover { transform: rotate(-13deg) translateX(-40px) scale(1.12) translateY(-6px); }
   
   /* Location */
   .card-location { position: relative; overflow: hidden; border-radius: 20px; }
@@ -944,4 +959,56 @@
   }
   .chat-bubble-sent.with-tail {
     border-radius: 28px 28px 2px 28px;
+  }
+  /* ── Email copied toast ───────────────────────────────────────────────── */
+  .email-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 999;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 10px 24px 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 320px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s ease;
+  }
+  .email-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .email-toast-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f7f7f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .email-toast-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .email-toast-text strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .email-toast-text span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--grey);
+    white-space: nowrap;
   }

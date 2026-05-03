@@ -94,7 +94,7 @@
                     </div>
                     <span class="notes-item-date">2021 – Present</span>
                   </div>
-                  <span class="notes-item-clients">Audi · Nestlé Global · SanPellegrino · Purina · FGC · IQOS · Volkswagen Group</span>
+                  <span class="notes-item-clients">Audi · Nestlé Global · SanPellegrino · Purina · FGC · IQOS · Volkswagen Group · Nescafé Dolce Gusto</span>
                 </li>
                 <li class="notes-item notes-item--expanded">
                   <div class="notes-item-header">
@@ -213,7 +213,7 @@
       <div class="cards-row">
         <div class="card card-sm card-contact">
           <div class="contact-icons">
-            <a href="/cdn-cgi/l/email-protection#36455f5a405f5751540476515b575f5a1855595b" class="contact-icon" aria-label="Email">💌</a>
+            <button class="contact-icon contact-icon-email" aria-label="Copy email" onclick="copyEmail()">💌</button>
             <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener"
                class="contact-icon contact-icon-linkedin" aria-label="LinkedIn">
               <img src="images/linkedin-logo.png" alt="LinkedIn" />
@@ -252,13 +252,13 @@
     // clickEmoji added (or incremented) when the bubble is clicked.
     const MESSAGES = [
       { type:'text',  text:"Hi, I'm Silvia!",                                                                             defaultReaction:{emoji:'🧚🏻‍♀️', count:1}, clickEmoji:'🧚🏻‍♀️', typingMs:900  },
-      { type:'text',  text:"But you can call me Silvi, Sil, or Zirvi—just like my Andalusian grandma used to.",          defaultReaction:null,                    clickEmoji:'👵🏻',     typingMs:1300 },
+      { type:'text',  text:"But you can call me Silvi, Sil, or Zirvi. Just like my Andalusian grandma used to.",          defaultReaction:null,                    clickEmoji:'👵🏻',     typingMs:1300 },
       { type:'text',  text:"For the past five years, I've been a Product Designer at Ogilvy. Demanding clients, tight deadlines, and more project types than I can count.",   defaultReaction:null,                    clickEmoji:'🤠',     typingMs:1400 },
-      { type:'text',  text:"Still at Ogilvy, but open to new opportunities — ideally a digital product team. Just leaving that here.",                                        defaultReaction:null,                    clickEmoji:'🌟',     typingMs:1400 },
-      { type:'text',  text:"Though I have a dark past... I used to plan events! 👀",                                     defaultReaction:null,                    clickEmoji:'🌒',     typingMs:1100 },
-      { type:'text',  text:"And this? This is my home office manager—the real boss of the house. 👇",                    defaultReaction:null,                    clickEmoji:'🫡',     typingMs:1300 },
+      { type:'text',  text:"Still at Ogilvy, but open to new opportunities. Ideally a digital product team. Just leaving that here.",                                        defaultReaction:null,                    clickEmoji:'🌟',     typingMs:1400 },
+      { type:'text',  text:"Though I have a dark past. I used to plan events! 👀",                                     defaultReaction:null,                    clickEmoji:'🌒',     typingMs:1100 },
+      { type:'text',  text:"And this? This is my home office manager. The real boss of the house. 👇",                    defaultReaction:null,                    clickEmoji:'🫡',     typingMs:1300 },
       { type:'image', src:CAT_IMG,                                                                                        defaultReaction:{emoji:'💖', count:1},   clickEmoji:'💖',     typingMs:2000 },
-      { type:'text',  text:"You read the whole thing — respect. Drop me a line if anything caught your eye. 💌", defaultReaction:null, clickEmoji:'💌', typingMs:1400 },
+      { type:'text',  text:"You read the whole thing. Drop me a line if anything caught your eye. 💌", defaultReaction:null, clickEmoji:'💌', typingMs:1400 },
     ];
 
     const scrollEl    = document.getElementById('chat-scroll');
@@ -550,13 +550,13 @@
             replyRow.className = 'chat-bubble-row';
             const replyBubble = document.createElement('div');
             replyBubble.className = 'chat-bubble';
-            replyBubble.textContent = "Thanks for writing! What's your email so I can get back to you? 📩";
+            replyBubble.textContent = "Thanks for writing! What's your email so I can get back to you?";
             replyRow.appendChild(replyBubble);
             replyRow.appendChild(makeTailSVG(BUBBLE_BG));
             replyEl.appendChild(replyRow);
             animateIn(replyEl);
-          }, 2000);
-        }, 3000);
+          }, 1500);
+        }, 1000);
       }
 
       setTimeout(() => {
@@ -566,6 +566,15 @@
         inputEl.focus();
       }, 500);
     }
+
+    // ── Copy email to clipboard ───────────────────────────────────────────
+    window.copyEmail = function() {
+      navigator.clipboard.writeText('silviagb2@gmail.com').then(() => {
+        const toast = document.getElementById('email-toast');
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 2500);
+      });
+    };
 
     sendBtn.addEventListener('click', sendMessage);
     inputEl.addEventListener('keydown', (e) => {
@@ -712,6 +721,15 @@
       });
     })();
   </script>
+
+  <!-- EMAIL COPIED TOAST -->
+  <div class="email-toast" id="email-toast" aria-live="polite">
+    <div class="email-toast-icon">✅</div>
+    <div class="email-toast-text">
+      <strong>Email copied!</strong>
+      <span>silviagb2@gmail.com</span>
+    </div>
+  </div>
 
 </body>
 </html>
