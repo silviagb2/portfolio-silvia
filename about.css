@@ -415,7 +415,7 @@
     .nav-contact-btn { padding: 7px 14px; font-size: 14px; }
     .about-main   { padding: calc(var(--nav-h) + 16px) 16px 16px; flex-direction: column; }
     .about-right  { order: 1; }
-    .about-left   { order: 2; width: 100%; height: 420px; }
+    .about-left-wrap { display: none; } /* hidden — replaced by FAB + drawer */
     .cards-row    { flex-direction: column; gap: 12px; }
     .cards-row:last-child { display: flex; flex-direction: column; height: auto; }
     .card-info    { flex: none; height: auto; min-height: 0; padding: 20px 24px 24px; }
@@ -426,6 +426,147 @@
     .contact-icon-linkedin { transform: rotate(26deg) translateX(28px); }
     .contact-icon-linkedin:hover { transform: rotate(26deg) translateX(28px) scale(1.12) translateY(-6px); }
     .contact-icon-linkedin img { width: 64px; height: 64px; }
+  }
+
+  /* =============================================
+     CHAT FAB + DRAWER (mobile only)
+     ============================================= */
+
+  /* FAB button */
+  .chat-fab {
+    display: none; /* hidden on desktop */
+  }
+  @media (max-width: 768px) {
+    .chat-fab {
+      display: flex;
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      z-index: 200;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #dde8f7;
+      border: none;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 6px 24px rgba(0,0,0,0.1);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .chat-fab:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 8px 28px rgba(0,0,0,0.12);
+    }
+    .chat-fab--open { transform: scale(0.92); }
+
+    /* backdrop */
+    .chat-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 210;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .chat-drawer-backdrop--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* drawer */
+    .chat-drawer {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 220;
+      height: 85dvh;
+      background: var(--card-bg);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.38s cubic-bezier(0.32,0.72,0,1);
+      overflow: visible;
+    }
+    .chat-drawer--open {
+      transform: translateY(0);
+    }
+
+    /* drawer handle */
+    .chat-drawer-handle {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0 4px;
+    }
+    .chat-drawer-handle::before {
+      content: '';
+      width: 36px;
+      height: 4px;
+      border-radius: 100px;
+      background: rgba(0,0,0,0.15);
+    }
+
+    /* drawer header */
+    .chat-drawer-header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 16px 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .chat-drawer-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark-blue);
+      letter-spacing: -0.01em;
+    }
+    .chat-drawer-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.07);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--grey-2);
+      transition: background 0.15s;
+    }
+    .chat-drawer-close:hover { background: rgba(0,0,0,0.12); }
+
+    /* chat scroll inside drawer */
+    .chat-drawer .chat-scroll {
+      flex: 1 1 0px;
+      height: 0; /* key: forces flex to give it a real height */
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+    }
+    /* input bar inside drawer */
+    .chat-drawer .chat-input-bar {
+      flex-shrink: 0;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px max(12px, env(safe-area-inset-bottom));
+    }
+    .chat-drawer .chat-input-bar .chat-input {
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .chat-drawer .chat-bubble {
+      max-width: calc(100vw - 80px);
+      word-break: break-word;
+    }
   }
   
   /* =============================================
@@ -621,21 +762,72 @@
     .notes-app {
       flex-direction: column;
       padding: 8px;
-      gap: 8px;
+      gap: 0;
     }
     .notes-sidebar {
       width: 100%;
-      border-radius: 12px;
-      padding: 8px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-bottom: none;
+      padding: 10px 8px 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 0;
     }
-    .notes-dots { padding-bottom: 8px; }
-    .notes-folders { flex-direction: row; flex-wrap: wrap; gap: 4px; }
-    .notes-folder  { padding: 6px 10px; }
+    .notes-dots { padding-bottom: 4px; flex-shrink: 0; }
+    .notes-folders {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      width: 100%;
+    }
+    .notes-folders::-webkit-scrollbar { display: none; }
+    .notes-folder {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 8px;
+      gap: 6px;
+    }
+    .notes-folder-icon { font-size: 12px; }
+    .notes-folder-name { font-size: 13px; }
     .notes-folder-count { display: none; }
-    .notes-content { margin-left: 0; border-radius: 12px; }
-    .notes-panel-title { padding: 16px 20px 4px; font-size: 17px; }
-    .notes-list { padding: 8px 20px 20px; }
-    .notes-item { padding: 12px 0; }
+    .notes-folder--active {
+      background: #dde8f7;
+      border-radius: 8px;
+    }
+    .notes-folder--active .notes-folder-name { color: #1a3a6b; }
+    .notes-folder--active .notes-folder-icon { opacity: 1; }
+    .notes-content {
+      margin-left: 0;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+    .notes-panel-title {
+      padding: 14px 16px 10px;
+      font-size: 15px;
+      border-bottom: none;
+      position: relative;
+    }
+    .notes-panel-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background: rgba(0,0,0,0.07);
+    }
+    .notes-content {
+      margin-left: 0;
+      border-radius: 0 0 14px 14px;
+    }
+    .notes-panel-title { padding: 14px 16px 10px; font-size: 15px; }
+    .notes-list { padding: 4px 16px 20px; }
+    .notes-item { padding: 10px 0; }
+    .notes-item-clients { padding-right: 0; }
   }
   
   /* =============================================

@@ -32,7 +32,7 @@
         </div>
         <div class="chat-input-bar" id="chat-input-bar">
           <label for="chat-input" class="sr-only">Send a message</label>
-          <textarea id="chat-input" class="chat-input" placeholder="Drop me a message... I'll actually read this 👀" maxlength="300" rows="1"></textarea>
+          <textarea id="chat-input" class="chat-input" placeholder="Drop me a message... 👀" maxlength="300" rows="1"></textarea>
           <button id="chat-send" class="chat-send-btn" aria-label="Send">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124" /><path d="M6.5 12h14.5" /></svg>
           </button>
@@ -535,6 +535,30 @@
         confirmEl.style.transform = 'translateY(0)';
       }));
 
+      // ── Auto-reply: ask for email (once per session) ──────────────────
+      const hasReplied = sessionStorage.getItem('portfolio_autoreplied');
+      if (!hasReplied) {
+        sessionStorage.setItem('portfolio_autoreplied', 'true');
+        setTimeout(() => {
+          showTyping();
+          scrollBottom();
+          setTimeout(() => {
+            removeTyping();
+            const replyEl = document.createElement('div');
+            replyEl.className = 'chat-msg';
+            const replyRow = document.createElement('div');
+            replyRow.className = 'chat-bubble-row';
+            const replyBubble = document.createElement('div');
+            replyBubble.className = 'chat-bubble';
+            replyBubble.textContent = "Thanks for writing! What's your email so I can get back to you? 📩";
+            replyRow.appendChild(replyBubble);
+            replyRow.appendChild(makeTailSVG(BUBBLE_BG));
+            replyEl.appendChild(replyRow);
+            animateIn(replyEl);
+          }, 2000);
+        }, 3000);
+      }
+
       setTimeout(() => {
         inputEl.disabled = false;
         sendBtn.disabled = false;
@@ -606,6 +630,88 @@
   </script>
 
   <script src="components/nav.js"></script>
+
+  <!-- MOBILE CHAT FAB + DRAWER -->
+  <button class="chat-fab" id="chat-fab" aria-label="Open chat">💬</button>
+  <div class="chat-drawer-backdrop" id="chat-drawer-backdrop"></div>
+  <div class="chat-drawer" id="chat-drawer" role="dialog" aria-modal="true" aria-label="Chat with Silvia">
+    <div class="chat-drawer-handle" aria-hidden="true"></div>
+    <div class="chat-drawer-header">
+      <span class="chat-drawer-title">Say hi 👋</span>
+      <button class="chat-drawer-close" id="chat-drawer-close" aria-label="Close chat">✕</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const fab      = document.getElementById('chat-fab');
+      const backdrop = document.getElementById('chat-drawer-backdrop');
+      const drawer   = document.getElementById('chat-drawer');
+      const closeBtn = document.getElementById('chat-drawer-close');
+      const scrollEl = document.getElementById('chat-scroll');
+      const inputBar = document.getElementById('chat-input-bar');
+
+      let drawerReady = false;
+
+      function isMobile() { return window.innerWidth <= 768; }
+
+      function openDrawer() {
+        if (!drawerReady) {
+          drawer.appendChild(scrollEl);
+          drawer.appendChild(inputBar);
+          drawerReady = true;
+        }
+        drawer.classList.add('chat-drawer--open');
+        backdrop.classList.add('chat-drawer-backdrop--visible');
+        fab.classList.add('chat-fab--open');
+        document.body.style.overflow = 'hidden';
+        // wait for drawer to finish animating then scroll to bottom
+        setTimeout(() => {
+          scrollEl.scrollTop = scrollEl.scrollHeight;
+        }, 400);
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('chat-drawer--open');
+        backdrop.classList.remove('chat-drawer-backdrop--visible');
+        fab.classList.remove('chat-fab--open');
+        document.body.style.overflow = '';
+      }
+
+      fab.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+
+      // swipe down to close
+      let touchStartY = 0;
+      let touchStartScrollTop = 0;
+
+      drawer.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+      }, { passive: true });
+
+      drawer.addEventListener('touchend', (e) => {
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        // only close if swiped down >80px AND scroll is at top
+        if (deltaY > 80 && touchStartScrollTop <= 0) {
+          closeDrawer();
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        if (!isMobile() && drawerReady) {
+          const leftEl = document.querySelector('.about-left');
+          if (leftEl) {
+            leftEl.appendChild(scrollEl);
+            leftEl.appendChild(inputBar);
+            drawerReady = false;
+            closeDrawer();
+          }
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
