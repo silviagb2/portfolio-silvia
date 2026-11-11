@@ -235,7 +235,8 @@
 
         <div class="card card-sm card-resume">
           <a href="CV-Silvia-Gutierrez.pdf"
-             target="_blank" rel="noopener" class="resume-btn">
+             target="_blank" rel="noopener" class="resume-btn"
+             onclick="if (window.logEvent) logEvent('click_resume', 'about')">
             👀 View resume<span class="sr-only"> (opens in new tab)</span>
           </a>
         </div>
@@ -638,6 +639,7 @@
     });
   </script>
 
+  <script src="js/visits.js"></script>
   <script src="components/nav.js"></script>
 
   <!-- MOBILE CHAT FAB + DRAWER -->
