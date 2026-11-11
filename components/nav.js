@@ -23,7 +23,7 @@
         <span class="nav-name">Silvia<span class="nav-name-last"> Gutierrez</span></span>
       </a>
       <div class="nav-pill">
-        <a href="index.html" class="nav-pill-link${workActive}">Work</a>
+        <a href="index.html" class="nav-pill-link${workActive}" onclick="if (window.logEvent) logEvent('click_work', '${activePage}')">Work</a>
         <a href="about.html" class="nav-pill-link${aboutActive}">About</a>
       </div>
       <a href="https://www.linkedin.com/in/silviagb/" target="_blank" rel="noopener" class="nav-contact-btn" style="background-color:#ffffff">
